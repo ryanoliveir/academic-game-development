@@ -34,6 +34,9 @@ def draw_window():
 def main():
     clock = pygame.time.Clock()
 
+    player_red = pygame.Rect(100, 300, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
+    player_yellow = pygame.Rect(100, 300, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
+
     run = True
     while run:
         clock.tick(FPS)
