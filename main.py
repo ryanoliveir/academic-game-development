@@ -27,9 +27,31 @@ def draw_window(player_1, player_2_):
     window.fill(WHITE)
     window.blit(space_ship_yellow, (player_1.x, player_1.y))
     window.blit(space_ship_red, (player_2_.x, player_2_.y))
-    
-
     pygame.display.update()
+
+
+
+def yellow_handle_movement(keys_pressed, player_1):
+    if keys_pressed[pygame.K_a]: #left
+        player_1.x -= VELOCITY
+    if keys_pressed[pygame.K_d]: #right
+        player_1.x += VELOCITY
+    if keys_pressed[pygame.K_w]: #up
+        player_1.y -= VELOCITY
+    if keys_pressed[pygame.K_s]: #down
+        player_1.y += VELOCITY
+            
+
+def red_handle_movement(keys_pressed, player_2):
+    if keys_pressed[pygame.K_LEFT]: #left
+        player_2.x -= VELOCITY
+    if keys_pressed[pygame.K_RIGHT]: #right
+        player_2.x += VELOCITY
+    if keys_pressed[pygame.K_UP]: #up
+        player_2.y -= VELOCITY
+    if keys_pressed[pygame.K_DOWN]: #down
+        player_2.y += VELOCITY
+            
 
 
 def main():
@@ -49,18 +71,13 @@ def main():
 
         keys_pressed = pygame.key.get_pressed()
 
-        if keys_pressed[pygame.K_a]: #left
-            player_yellow.x -= VELOCITY
-        if keys_pressed[pygame.K_d]: #right
-            player_yellow.x += VELOCITY
-        if keys_pressed[pygame.K_w]: #up
-            player_yellow.y -= VELOCITY
-        if keys_pressed[pygame.K_s]: #down
-            player_yellow.y += VELOCITY
-            
+        yellow_handle_movement(keys_pressed, player_yellow)
+        red_handle_movement(keys_pressed, player_red)
+        
 
 
         draw_window(player_yellow, player_red)
+        
 
 
     pygame.quit()
