@@ -18,9 +18,13 @@ BORDER = pygame.Rect(WIDTH//2 - 5, 0, 10, HEIGHT)
 YELLOW_HIT = pygame.USEREVENT + 1
 RED_HIT = pygame.USEREVENT + 2
 
+BACKGROUND_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join('assets', 'space.png')), (WIDTH, HEIGHT))
+
+
+
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 
-pygame.display.set_caption("Caça fariseu")
+pygame.display.set_caption("STAR SEM WARS")
 
 
 space_ship_yellow_image = pygame.image.load(
@@ -33,7 +37,7 @@ space_ship_red_image = pygame.image.load(
 space_ship_red = pygame.transform.rotate(pygame.transform.scale(space_ship_red_image, (SPACESHIP_WIDTH, SPACESHIP_HEIGHT)), 270)
 
 def draw_window(player_1, player_2, yellow_bullets, red_bullets):
-    window.fill(WHITE)
+    window.blit(BACKGROUND_IMAGE, (0,0))
     pygame.draw.rect(window, BLACK, BORDER) 
     window.blit(space_ship_yellow, (player_1.x, player_1.y))
     window.blit(space_ship_red, (player_2.x, player_2.y))
