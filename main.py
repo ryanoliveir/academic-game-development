@@ -2,6 +2,7 @@ import pygame
 import os 
 
 pygame.font.init()
+pygame.mixer.init()
 
 WIDTH, HEIGHT = 900, 500
 
@@ -19,6 +20,10 @@ BORDER = pygame.Rect(WIDTH//2 - 5, 0, 10, HEIGHT)
 
 HEALTH_FONT = pygame.font.SysFont("comicsans", 40)
 WINNER_FONT = pygame.font.SysFont("comicsans", 40)
+
+
+BULLET_HIT_SOUND = pygame.mixer.Sound(os.path.join('assets', 'hit_sound.mp3'))
+BULLET_FIRE_SOUND = pygame.mixer.Sound(os.path.join('assets', 'fire.mp3'))
 
 YELLOW_HIT = pygame.USEREVENT + 1
 RED_HIT = pygame.USEREVENT + 2
@@ -65,8 +70,10 @@ def draw_window(player_1, player_2, yellow_bullets, red_bullets, player_1_health
 
 
 def draw_winner(text):
-    pass
-
+    draw_text = WINNER_FONT.render(text,1,WHITE)
+    window.blit(draw_text, (WIDTH//2- draw_text.get_width()/2, HEIGHT//2 - draw_text.get_height()/2))
+    pygame.display.update()
+    pygame.time.delay(5000)
 
 def yellow_handle_movement(keys_pressed, player_1):
     if keys_pressed[pygame.K_a] and player_1.x - VELOCITY > 0: #left
@@ -132,6 +139,7 @@ def main():
 
             if event.type == pygame.QUIT:
                 run = False
+                pygame.quit()
 
             
 
@@ -139,16 +147,20 @@ def main():
                 if event.key == pygame.K_LCTRL and len(yellow_bullets) < MAX_BULLETS:
                     bullet = pygame.Rect(player_yellow.x + player_yellow.width, player_yellow.y + player_yellow.height//2 - 2, 10, 5)
                     yellow_bullets.append(bullet)
+                    BULLET_FIRE_SOUND.play()
 
                 if event.key == pygame.K_RCTRL and len(red_bullets) < MAX_BULLETS:
                     bullet = pygame.Rect(player_red.x, player_red.y + player_red.height//2 -2 ,10, 5)
                     red_bullets.append(bullet)
+                    BULLET_FIRE_SOUND.play()
 
 
             if event.type == RED_HIT:
+                BULLET_HIT_SOUND.play()
                 red_health -= 1
 
             if event.type == YELLOW_HIT:
+                BULLET_HIT_SOUND.play()
                 yellow_health -= 1
 
         winner_text = ""
@@ -159,7 +171,8 @@ def main():
             winner_text = "Red Wins!"
 
         if winner_text != "":
-            pass  
+            draw_winner(winner_text)
+            break
 
         keys_pressed = pygame.key.get_pressed()
         yellow_handle_movement(keys_pressed, player_yellow)
@@ -170,8 +183,8 @@ def main():
         draw_window(player_yellow, player_red, yellow_bullets, red_bullets, yellow_health, red_health)
         
 
-
-    pygame.quit()
+    
+    main()
 
 if __name__ == "__main__":
     main()
