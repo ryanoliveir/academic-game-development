@@ -77,11 +77,17 @@ def handle_bullets(yellow_bullets, red_bullets, player_1, player_2):
             pygame.event.post(pygame.event.Event(RED_HIT))
             yellow_bullets.remove(bullet)
 
+        elif bullet.x > WIDTH:
+            yellow_bullets.remove(bullet)
+
+
 
     for bullet in red_bullets:
         bullet.x -= BULLET_VELOCITY
         if(player_1.colliderect(bullet)):
             pygame.event.post(pygame.event.Event(YELLOW_HIT))
+            red_bullets.remove(bullet)
+        elif bullet.x < 0:
             red_bullets.remove(bullet)
 
 
