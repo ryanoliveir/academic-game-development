@@ -1,3 +1,4 @@
+import sys
 import pygame
 import os 
 
@@ -119,6 +120,7 @@ def handle_bullets(yellow_bullets, red_bullets, player_1, player_2):
 
 
 def main():
+    global window
     clock = pygame.time.Clock()
 
     player_red = pygame.Rect(700, 300, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
@@ -140,6 +142,7 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
                 pygame.quit()
+                sys.exit()
 
             
 
@@ -181,8 +184,6 @@ def main():
         handle_bullets(yellow_bullets, red_bullets, player_yellow, player_red)
 
         draw_window(player_yellow, player_red, yellow_bullets, red_bullets, yellow_health, red_health)
-        
-
     
     main()
 
