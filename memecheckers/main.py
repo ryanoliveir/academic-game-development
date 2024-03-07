@@ -30,7 +30,7 @@ def main():
                 sys.exit()
 
 
-        board.draw_squares(WINDOW)
+        board.draw(WINDOW)
         pygame.display.update()
 
 main()
