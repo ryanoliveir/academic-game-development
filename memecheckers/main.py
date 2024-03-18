@@ -1,6 +1,6 @@
 import pygame
-from checkers.constants import WIDTH, HEIGHT, FPS
-from checkers.board import Board
+from checkers.constants import WIDTH, HEIGHT, FPS, SQUARE_SIZE,RED
+from checkers.game import Game
 import sys
 
 WINDOW = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -10,14 +10,18 @@ WINDOW = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('MemeChecks')
 
 
+def get_row_col_from_mouse(position):
+    x, y = position
+    row = y // SQUARE_SIZE
+    col = x // SQUARE_SIZE
+
+    return row, col
+
 
 def main():
     run = True
     clock = pygame.time.Clock()
-    board = Board()
-
-
-
+    game = Game(WINDOW)
 
     while run:
 
@@ -29,9 +33,15 @@ def main():
                 pygame.quit()
                 sys.exit()
 
+            
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_position = pygame.mouse.get_pos()
+                row, col = get_row_col_from_mouse(mouse_position)
+                if game.turn == RED:
+                    game.select(row, col)
+                
 
-        board.draw(WINDOW)
-        pygame.display.update()
+        game.update()
 
 main()
 
