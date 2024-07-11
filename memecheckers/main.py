@@ -1,6 +1,7 @@
 import pygame
 from checkers.constants import WIDTH, HEIGHT, FPS, SQUARE_SIZE,RED
 from checkers.game import Game
+from checkers.board import Board
 import sys
 
 WINDOW = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -37,10 +38,9 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_position = pygame.mouse.get_pos()
                 row, col = get_row_col_from_mouse(mouse_position)
-                if game.turn == RED:
-                    game.select(row, col)
+                game.select(row, col)
+            
                 
-
         game.update()
 
 main()
