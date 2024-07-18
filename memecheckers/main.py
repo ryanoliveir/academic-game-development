@@ -44,5 +44,3 @@ def main():
         game.update()
 
 main()
-
-
