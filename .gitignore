@@ -1,3 +1,5 @@
 .game
 build
 .venv
+__pycache__/
+memecheckers/checkers/__pycache__/
