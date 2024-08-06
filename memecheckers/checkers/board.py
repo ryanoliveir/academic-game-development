@@ -47,15 +47,17 @@ class Board():
                 else:
                     self.board[row].append(0)
     
-    def draw(self, window):
+    def draw(self, window, selected_piece=None):
         self.draw_squares(window)
         for row in range(ROWS):
             for col in range(COLS):
                 piece = self.board[row][col]
                 if piece != 0:
-                    piece.draw(window)
+                    if piece == selected_piece:
+                        piece.draw(window)
+                    else:
+                        piece.draw(window)
 
-    
     def remove(self, pieces):
         for piece in pieces:
             self.board[piece.row][piece.col] = 0

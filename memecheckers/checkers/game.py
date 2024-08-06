@@ -9,7 +9,7 @@ class Game():
 
 
     def update(self):
-        self.board.draw(self.window)
+        self.board.draw(self.window, self.selected)
         self.draw_valid_moves(self.valid_moves)
         pygame.display.update()
 
@@ -46,6 +46,7 @@ class Game():
             if skipped:
                 self.board.remove(skipped)
             self.change_turn()
+            self.selected = None
         else:
             return False
 
