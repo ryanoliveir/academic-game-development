@@ -1,10 +1,10 @@
 import pygame
-from checkers.constants import WIDTH, HEIGHT, FPS, SQUARE_SIZE,RED
+from checkers.constants import WINDOW_WITH, WINDOW_HEIGHT, FPS, SQUARE_SIZE,RED
 from checkers.game import Game
 from checkers.board import Board
 import sys
 
-WINDOW = pygame.display.set_mode((WIDTH, HEIGHT))
+WINDOW = pygame.display.set_mode((WINDOW_WITH, WINDOW_HEIGHT))
 
 
 
@@ -18,6 +18,13 @@ def get_row_col_from_mouse(position):
 
     return row, col
 
+
+def check_click_area_is_valid(mouse_pos):
+    if mouse_pos[0] <= 700:
+        return True
+
+    return False
+    
 
 def main():
     run = True
@@ -37,8 +44,9 @@ def main():
             
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_position = pygame.mouse.get_pos()
-                row, col = get_row_col_from_mouse(mouse_position)
-                game.select(row, col)
+                if (check_click_area_is_valid(mouse_position)):
+                    row, col = get_row_col_from_mouse(mouse_position)
+                    game.select(row, col)
             
                 
         game.update()
