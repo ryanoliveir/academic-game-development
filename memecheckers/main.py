@@ -1,7 +1,7 @@
 import pygame
 from checkers.constants import WINDOW_WITH, WINDOW_HEIGHT, FPS, SQUARE_SIZE,RED
 from checkers.game import Game
-from checkers.board import Board
+from checkers.menu import Menu
 import sys
 
 WINDOW = pygame.display.set_mode((WINDOW_WITH, WINDOW_HEIGHT))
@@ -28,6 +28,12 @@ def check_click_area_is_valid(mouse_pos):
 
 def main():
     run = True
+
+
+    menu = Menu(WINDOW)
+    menu.run()
+
+
     clock = pygame.time.Clock()
     game = Game(WINDOW)
 
