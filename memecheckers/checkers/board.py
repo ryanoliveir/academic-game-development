@@ -1,5 +1,5 @@
 import pygame
-from .constants import BLACK, RED, WHITE, ROWS, COLS, SQUARE_SIZE
+from .constants import BLACK, RED, SELECTED_SOUND, WHITE, ROWS, COLS, SQUARE_SIZE
 from .piece import Piece
 
 class Board():
@@ -55,6 +55,7 @@ class Board():
                 if piece != 0:
                     if piece == selected_piece:
                         piece.draw(window, selected_piece)
+                        
                     else:
                         piece.draw(window)
 

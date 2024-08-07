@@ -26,6 +26,15 @@ RED = (204,102,0)
 GRAY = (128, 128,128)
 
 
+pygame.mixer.init()
+
+
+
+SELECTED_SOUND = pygame.mixer.Sound(os.path.join('memecheckers/assets', 'selected_sound.wav'))
+CAPTURE_SOUND = pygame.mixer.Sound(os.path.join('memecheckers/assets', 'capture_song.wav'))
+START_SOUND = pygame.mixer.Sound(os.path.join('memecheckers/assets', 'start_sound.wav'))
+
+
 TIME_ICON = pygame.transform.scale(pygame.image.load(os.path.join('memecheckers/assets', 'time_icon.png')), (32, 32))
 CROW = pygame.transform.scale(pygame.image.load(os.path.join('memecheckers/assets','crown.png')),(40,21))
 WHITE_PIECE = pygame.transform.scale(pygame.image.load(os.path.join('memecheckers/assets', 'white_piece.png')),(52,52))

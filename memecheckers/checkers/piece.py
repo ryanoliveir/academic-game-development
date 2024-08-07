@@ -1,5 +1,5 @@
 import pygame
-from .constants import RED, SQUARE_SIZE, GRAY, CROW, WHITE_PIECE, WHITE_PIECE_SELECTED, BLACK_PIECE_SELECTED, BLACK_PIECE
+from .constants import RED, SELECTED_SOUND, SQUARE_SIZE, GRAY, CROW, WHITE_PIECE, WHITE_PIECE_SELECTED, BLACK_PIECE_SELECTED, BLACK_PIECE
 
 class Piece:
     PADDING = 17
@@ -37,7 +37,7 @@ class Piece:
         else:
             piece_image = WHITE_PIECE_SELECTED if selected else WHITE_PIECE
 
-        print(piece_image)
+        
        
         image_rect = piece_image.get_rect(center=(self.x, self.y))
         window.blit(piece_image, image_rect)

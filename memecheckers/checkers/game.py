@@ -1,5 +1,16 @@
 import pygame
-from .constants import BOARD_SIZE, GRAY, RED, TIME_ICON, WHITE, BLUE, SQUARE_SIZE, WINDOW_HEIGHT, WINDOW_WITH
+from .constants import (
+    BOARD_SIZE, 
+    GRAY, RED, 
+    SELECTED_SOUND,
+    START_SOUND, 
+    WHITE, 
+    BLUE, 
+    SQUARE_SIZE, 
+    WINDOW_HEIGHT, 
+    WINDOW_WITH,
+    CAPTURE_SOUND
+)
 from .board import Board
 
 class Game():
@@ -24,6 +35,9 @@ class Game():
         self.board = Board()
         self.turn = RED
         self.valid_moves = {}
+        self.select_sound = SELECTED_SOUND
+        self.capture_sound = CAPTURE_SOUND
+        START_SOUND.play()
         self.turn_start_time = pygame.time.get_ticks()
 
     def reset(self):
@@ -40,6 +54,7 @@ class Game():
         if piece != 0 and piece.color == self.turn:
             self.selected = piece
             self.valid_moves = self.board.get_valid_moves(piece)
+            self.select_sound.play()
             return True
             
         return False 
@@ -52,6 +67,7 @@ class Game():
             skipped = self.valid_moves[(row, col)]
             if skipped:
                 self.board.remove(skipped)
+                self.capture_sound.play()
             self.change_turn()
             self.selected = None
         else:
