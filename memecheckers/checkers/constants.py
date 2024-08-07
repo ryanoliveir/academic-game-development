@@ -32,6 +32,5 @@ WHITE_PIECE = pygame.transform.scale(pygame.image.load(os.path.join('memechecker
 BLACK_PIECE = pygame.transform.scale(pygame.image.load(os.path.join('memecheckers/assets', 'black_piece.png')),(52,52))
 TIME_ICON = pygame.transform.scale(pygame.image.load(os.path.join('memecheckers/assets', 'time_icon.png')), (32, 32))
 
-WHITE_PIECE_SELECTED = ''
-
-BLACK_PIECE_SELECTED = ''
+WHITE_PIECE_SELECTED = pygame.transform.scale(pygame.image.load(os.path.join('memecheckers/assets', 'white_piece_selected.png')), (56, 56))
+BLACK_PIECE_SELECTED = pygame.transform.scale(pygame.image.load(os.path.join('memecheckers/assets', 'black_piece_selected.png')), (56, 56))

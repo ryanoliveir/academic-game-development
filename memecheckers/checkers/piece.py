@@ -1,5 +1,5 @@
 import pygame
-from .constants import RED, SQUARE_SIZE, GRAY, CROW, WHITE_PIECE, BLACK_PIECE
+from .constants import RED, SQUARE_SIZE, GRAY, CROW, WHITE_PIECE, WHITE_PIECE_SELECTED, BLACK_PIECE_SELECTED, BLACK_PIECE
 
 class Piece:
     PADDING = 17
@@ -30,30 +30,17 @@ class Piece:
         self.isKing = True
 
 
-    def draw(self, window, scale=0):
+    def draw(self, window, selected=False):
     
         if self.color == RED:
-            piece_image = BLACK_PIECE
+            piece_image = BLACK_PIECE_SELECTED if selected else BLACK_PIECE
         else:
-            piece_image = WHITE_PIECE
+            piece_image = WHITE_PIECE_SELECTED if selected else WHITE_PIECE
 
-
-        scaled_size = (int(piece_image.get_width() + scale), int(piece_image.get_height() + scale))
-        piece_image = pygame.transform.scale(piece_image, scaled_size)
-
-        # Calculate the position to blit the image
+        print(piece_image)
+       
         image_rect = piece_image.get_rect(center=(self.x, self.y))
         window.blit(piece_image, image_rect)
-
-        # image_rect = piece_image.get_rect(center=(self.x, self.y))
-        # window.blit(piece_image, image_rect)
-
-        # scaled_size = (int(piece_image.get_width() * scale), int(piece_image.get_height() * scale))
-        # print(scaled_size)
-        # piece_image = pygame.transform.scale(piece_image, scaled_size)
-        # # radius = SQUARE_SIZE // 2 - self.PADDING
-        # pygame.draw.circle(window, GRAY, (self.x, self.y), radius + self.OUTLINE)
-        # pygame.draw.circle(window, self.color, (self.x, self.y), radius)
 
         if self.isKing:
             window.blit(CROW, (self.x - CROW.get_width()//2, self.y - CROW.get_height()//2))

@@ -54,7 +54,7 @@ class Board():
                 piece = self.board[row][col]
                 if piece != 0:
                     if piece == selected_piece:
-                        piece.draw(window)
+                        piece.draw(window, selected_piece)
                     else:
                         piece.draw(window)
 
