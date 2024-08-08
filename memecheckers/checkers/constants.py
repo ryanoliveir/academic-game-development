@@ -27,6 +27,7 @@ GRAY = (128, 128,128)
 
 
 pygame.mixer.init()
+pygame.font.init()
 
 
 
@@ -46,3 +47,7 @@ BLACK_PIECE_SELECTED = pygame.transform.scale(pygame.image.load(os.path.join('me
 
 
 WOOD_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('memecheckers/assets','menu','wood_button.png')), (360, 360))
+LOGO = pygame.transform.scale(pygame.image.load(os.path.join('memecheckers/assets', 'menu', 'troll-face.png')), (100,89))
+
+
+FONT = pygame.font.Font(os.path.join('memecheckers/assets', 'fonts','SillerPersonalUse-9Y3wn.otf'), 60)

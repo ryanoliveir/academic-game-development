@@ -60,22 +60,6 @@ class Game():
             return True
             
         return False 
-    
-
-    # def _move(self, row, col):
-    #     piece = self.board.get_piece(row, col)
-    #     if self.selected and piece == 0 and (row, col) in self.valid_moves:
-    #         self.board.move(self.selected, row, col)
-    #         skipped = self.valid_moves[(row, col)]
-    #         if skipped:
-    #             self.board.remove(skipped)
-    #             self.capture_sound.play()
-    #         self.change_turn()
-    #         self.selected = None
-    #     else:
-    #         return False
-
-    #     return True
 
     def _move(self, row, col):
         piece = self.board.get_piece(row, col)
@@ -109,12 +93,11 @@ class Game():
 
 
     def draw_info_panel(self):
-        # Draw the info panel to the right of the board
+
         info_panel_x = BOARD_SIZE
         info_panel_width = WINDOW_WIDTH - BOARD_SIZE
         pygame.draw.rect(self.window, (173, 76, 38), (info_panel_x, 0, info_panel_width, WINDOW_HEIGHT))
-        # Add text or other information display logic here
-
+        
 
         turn_text = self.font.render(f'Turn: {"Red" if self.turn == RED else "White"}', True, WHITE)
         red_left_text = self.font.render(f'Red Pieces Left: {self.board.red_left}', True, WHITE)
@@ -122,19 +105,19 @@ class Game():
         red_kings_text = self.font.render(f'Red Kings: {self.board.red_kings}', True, WHITE)
         white_kings_text = self.font.render(f'White Kings: {self.board.white_kings}', True, WHITE)
         timer_text = self.font.render(f'Time Left: {self.get_formatted_time()}s', True, WHITE)
-        # Blit text surfaces onto the info panel area
+
         self.window.blit(turn_text, (info_panel_x + 10, 10))
         self.window.blit(red_left_text, (info_panel_x + 10, 50))
         self.window.blit(white_left_text, (info_panel_x + 10, 90))
         self.window.blit(red_kings_text, (info_panel_x + 10, 130))
         self.window.blit(white_kings_text, (info_panel_x + 10, 170))
         self.window.blit(timer_text, (info_panel_x + 10, 210))
-        # self.window.blit(TIME_ICON, (info_panel_x + 10, 210))
+        
     
 
     def update_timer(self):
         current_time = pygame.time.get_ticks()
-        elapsed_time = (current_time - self.turn_start_time) / 1000  # Convert to seconds
+        elapsed_time = (current_time - self.turn_start_time) / 1000  
         if elapsed_time >= self.max_time:
             self.change_turn()
     
@@ -142,7 +125,7 @@ class Game():
 
     def get_remaining_time(self):
         current_time = pygame.time.get_ticks()
-        elapsed_time = (current_time - self.turn_start_time) / 1000  # Convert to seconds
+        elapsed_time = (current_time - self.turn_start_time) / 1000 
         remaining_time = max(0, self.max_time - elapsed_time)
         return int(remaining_time)
     
