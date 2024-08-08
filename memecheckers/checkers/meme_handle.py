@@ -5,21 +5,22 @@ import os
 class MemeHandler:
     def __init__(self):
         # Define directories for memes
-        self.capture_memes = self.load_memes('path/to/capture/memes')
-        self.queen_memes = self.load_memes('path/to/queen/memes')
-        self.invalid_move_memes = self.load_memes('path/to/invalid_move/memes')
-        self.multi_capture_memes = self.load_memes('path/to/multi_capture/memes')
-
+        self.capture_memes = self.load_memes(os.path.join('memecheckers/assets','midia', 'capture'))
+        self.queen_memes = self.load_memes(os.path.join('memecheckers/assets','midia', 'queen'))
+        self.invalid_move_memes = self.load_memes(os.path.join('memecheckers/assets','midia', 'invalid_moves'))
+        self.multi_capture_memes = self.load_memes(os.path.join('memecheckers/assets','midia', 'multi_capture'))
+        self.time_memes = os.path.join('memecheckers/assets','midia', 'time')
     def load_memes(self, directory):
         memes = []
         for filename in os.listdir(directory):
             filepath = os.path.join(directory, filename)
             if filename.endswith('.wav') or filename.endswith('.mp3'):
                 memes.append(('sound', pygame.mixer.Sound(filepath)))
-            elif filename.endswith('.png') or filename.endswith('.jpg'):
+            elif filename.endswith('.png') or filename.endswith('.jpg') or filename.endswith('.jpeg'):
                 memes.append(('image', pygame.image.load(filepath)))
             elif filename.endswith('.mp4') or filename.endswith('.avi'):
                 memes.append(('video', filepath))  # Handle video differently
+            
         return memes
 
     def play_meme(self, meme_type):

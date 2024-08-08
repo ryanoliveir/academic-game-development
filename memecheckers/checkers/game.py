@@ -8,16 +8,18 @@ from .constants import (
     BLUE, 
     SQUARE_SIZE, 
     WINDOW_HEIGHT, 
-    WINDOW_WITH,
+    WINDOW_WIDTH,
     CAPTURE_SOUND
 )
 from .board import Board
+from .meme_handle import MemeHandler
 
 class Game():
     def __init__(self, window): 
         self._init()
         self.window = window
         pygame.font.init()
+        self.meme_handler = MemeHandler()
         self.font = pygame.font.SysFont('Arial', 24) 
         self.max_time = 30
         self.turn_start_time = pygame.time.get_ticks()
@@ -60,19 +62,43 @@ class Game():
         return False 
     
 
+    # def _move(self, row, col):
+    #     piece = self.board.get_piece(row, col)
+    #     if self.selected and piece == 0 and (row, col) in self.valid_moves:
+    #         self.board.move(self.selected, row, col)
+    #         skipped = self.valid_moves[(row, col)]
+    #         if skipped:
+    #             self.board.remove(skipped)
+    #             self.capture_sound.play()
+    #         self.change_turn()
+    #         self.selected = None
+    #     else:
+    #         return False
+
+    #     return True
+
     def _move(self, row, col):
         piece = self.board.get_piece(row, col)
         if self.selected and piece == 0 and (row, col) in self.valid_moves:
-            self.board.move(self.selected, row, col)
-            skipped = self.valid_moves[(row, col)]
-            if skipped:
-                self.board.remove(skipped)
-                self.capture_sound.play()
+            captured_pieces = self.valid_moves[(row, col)]
+            if captured_pieces:
+                self.board.move(self.selected, row, col)
+                self.board.remove(captured_pieces)
+                self.capture_sound.play()  # Play capture sound
+                if len(captured_pieces) > 2:
+                    self.meme_handler.play_meme(self.meme_handler.multi_capture_memes)
+                else:
+                    self.meme_handler.play_meme(self.meme_handler.capture_memes)
+            else:
+                self.board.move(self.selected, row, col)
+                # self.move_sound.play()  # Play move sound
+            if self.selected.isKing:
+                self.meme_handler.play_meme(self.meme_handler.queen_memes)
             self.change_turn()
-            self.selected = None
+            self.selected = None  # Deselect after move
         else:
+            self.meme_handler.play_meme(self.meme_handler.invalid_move_memes)  # Invalid move meme
             return False
-
         return True
 
 
@@ -86,8 +112,8 @@ class Game():
     def draw_info_panel(self):
         # Draw the info panel to the right of the board
         info_panel_x = BOARD_SIZE
-        info_panel_width = WINDOW_WITH - BOARD_SIZE
-        pygame.draw.rect(self.window, GRAY, (info_panel_x, 0, info_panel_width, WINDOW_HEIGHT))
+        info_panel_width = WINDOW_WIDTH - BOARD_SIZE
+        pygame.draw.rect(self.window, (173, 76, 38), (info_panel_x, 0, info_panel_width, WINDOW_HEIGHT))
         # Add text or other information display logic here
 
 
