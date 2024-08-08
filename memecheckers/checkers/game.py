@@ -84,20 +84,19 @@ class Game():
             if captured_pieces:
                 self.board.move(self.selected, row, col)
                 self.board.remove(captured_pieces)
-                self.capture_sound.play()  # Play capture sound
-                if len(captured_pieces) > 2:
+                self.capture_sound.play()  # Play capture sounds
+                if len(captured_pieces) > 1:
                     self.meme_handler.play_meme(self.meme_handler.multi_capture_memes)
                 else:
                     self.meme_handler.play_meme(self.meme_handler.capture_memes)
             else:
                 self.board.move(self.selected, row, col)
-                # self.move_sound.play()  # Play move sound
             if self.selected.isKing:
                 self.meme_handler.play_meme(self.meme_handler.queen_memes)
             self.change_turn()
-            self.selected = None  # Deselect after move
+            self.selected = None
         else:
-            self.meme_handler.play_meme(self.meme_handler.invalid_move_memes)  # Invalid move meme
+            self.meme_handler.play_meme(self.meme_handler.invalid_move_memes) 
             return False
         return True
 
