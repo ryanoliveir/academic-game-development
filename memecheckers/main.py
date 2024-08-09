@@ -2,6 +2,7 @@ import pygame
 from checkers.constants import WINDOW_WIDTH, WINDOW_HEIGHT, FPS, SQUARE_SIZE,RED
 from checkers.game import Game
 from checkers.menu import Menu
+from checkers.winner import WinnerPanel
 import sys
 
 WINDOW = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
@@ -26,20 +27,34 @@ def check_click_area_is_valid(mouse_pos):
     return False
     
 
-def main():
+def main(rerun=False):
     run = True
-
-
-    menu = Menu(WINDOW)
-    menu.run()
+    if not rerun:
+        menu = Menu(WINDOW)
+        menu.run()
 
 
     clock = pygame.time.Clock()
     game = Game(WINDOW)
+    
 
     while run:
 
         clock.tick(FPS)
+        
+
+        if game.winner() != None:
+            winner_panel = WinnerPanel(WINDOW, game.winner())
+            game.reset()
+            result = winner_panel.run()
+    
+            if result == 'play_again':
+                run = False
+                main(rerun=True)
+                
+            if result == 'menu':
+                main(rerun=False)
+                
         for event in pygame.event.get():
         
             if event.type == pygame.QUIT:

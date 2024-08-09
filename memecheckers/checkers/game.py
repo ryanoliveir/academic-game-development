@@ -9,7 +9,11 @@ from .constants import (
     SQUARE_SIZE, 
     WINDOW_HEIGHT, 
     WINDOW_WIDTH,
-    CAPTURE_SOUND
+    CAPTURE_SOUND,
+    FONT_INFO_PANEL_DATA,
+    FONT_INFO_PANEL_LABEL,
+    FONT_INFO_PANEL_LABEL_SMALL,
+    FONT_INFO_PANEL_DATA_SMALL
 )
 from .board import Board
 from .meme_handle import MemeHandler
@@ -20,7 +24,11 @@ class Game():
         self.window = window
         pygame.font.init()
         self.meme_handler = MemeHandler()
-        self.font = pygame.font.SysFont('Arial', 24) 
+        self.font_info_label = FONT_INFO_PANEL_LABEL
+        self.font_info_data = FONT_INFO_PANEL_DATA
+        self.font_info_label_small = FONT_INFO_PANEL_LABEL_SMALL
+        self.font_info_data_small = FONT_INFO_PANEL_DATA_SMALL
+        self.info_panel_padding = 50
         self.max_time = 30
         self.turn_start_time = pygame.time.get_ticks()
 
@@ -44,6 +52,9 @@ class Game():
 
     def reset(self):
        self._init()
+       
+    def winner(self):
+        return self.board.winner()
     
     def select(self, row, col):
         if self.selected:
@@ -93,25 +104,47 @@ class Game():
 
 
     def draw_info_panel(self):
-
         info_panel_x = BOARD_SIZE
         info_panel_width = WINDOW_WIDTH - BOARD_SIZE
         pygame.draw.rect(self.window, (173, 76, 38), (info_panel_x, 0, info_panel_width, WINDOW_HEIGHT))
-        
-
-        turn_text = self.font.render(f'Turn: {"Red" if self.turn == RED else "White"}', True, WHITE)
-        red_left_text = self.font.render(f'Red Pieces Left: {self.board.red_left}', True, WHITE)
-        white_left_text = self.font.render(f'White Pieces Left: {self.board.white_left}', True, WHITE)
-        red_kings_text = self.font.render(f'Red Kings: {self.board.red_kings}', True, WHITE)
-        white_kings_text = self.font.render(f'White Kings: {self.board.white_kings}', True, WHITE)
-        timer_text = self.font.render(f'Time Left: {self.get_formatted_time()}s', True, WHITE)
-
-        self.window.blit(turn_text, (info_panel_x + 10, 10))
-        self.window.blit(red_left_text, (info_panel_x + 10, 50))
-        self.window.blit(white_left_text, (info_panel_x + 10, 90))
-        self.window.blit(red_kings_text, (info_panel_x + 10, 130))
-        self.window.blit(white_kings_text, (info_panel_x + 10, 170))
-        self.window.blit(timer_text, (info_panel_x + 10, 210))
+    
+        # Render the text elements
+        turn_text_label = self.font_info_label.render('Turno:', True, WHITE)
+        turn_text_data = self.font_info_data.render(f'{"Preto" if self.turn == RED else "Branco"}', True, WHITE)
+        black_left_text = self.font_info_label.render(f'Pretas: {self.board.red_left}', True, WHITE)
+        white_left_text = self.font_info_label.render(f'Brancas: {self.board.white_left}', True, WHITE)
+        black_kings_text = self.font_info_label_small.render(f'Damas: {self.board.red_kings}', True, WHITE)
+        white_kings_text = self.font_info_label_small.render(f'Damas: {self.board.white_kings}', True, WHITE)
+        timer_text = self.font_info_label.render(f'Tempo: {self.get_formatted_time()}', True, WHITE)
+    
+        # Calculate the total height of all the text elements combined
+        total_height = (
+            turn_text_label.get_height() +
+            black_left_text.get_height() +
+            black_kings_text.get_height() +
+            white_left_text.get_height() +
+            white_kings_text.get_height() +
+            timer_text.get_height() +
+            (5 * 10)  # Adding spacing between elements
+        )
+    
+        # Calculate the starting y position to center the text block vertically
+        start_y = (WINDOW_HEIGHT - total_height) // 2
+    
+        # Draw the text elements centered vertically
+        current_y = start_y
+        self.window.blit(turn_text_label, (info_panel_x + self.info_panel_padding, current_y))
+        self.window.blit(turn_text_data, (info_panel_x + self.info_panel_padding + 90, current_y))
+        current_y += turn_text_label.get_height() + 10
+        self.window.blit(black_left_text, (info_panel_x + self.info_panel_padding, current_y))
+        current_y += black_left_text.get_height() + 10
+        self.window.blit(black_kings_text, (info_panel_x + self.info_panel_padding, current_y))
+        current_y += black_kings_text.get_height() + 10
+        self.window.blit(white_left_text, (info_panel_x + self.info_panel_padding, current_y))
+        current_y += white_left_text.get_height() + 10
+        self.window.blit(white_kings_text, (info_panel_x + self.info_panel_padding, current_y))
+        current_y += white_kings_text.get_height() + 10
+        self.window.blit(timer_text, (info_panel_x + self.info_panel_padding, current_y))
         
     
 

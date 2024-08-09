@@ -51,3 +51,9 @@ LOGO = pygame.transform.scale(pygame.image.load(os.path.join('memecheckers/asset
 
 
 FONT = pygame.font.Font(os.path.join('memecheckers/assets', 'fonts','SillerPersonalUse-9Y3wn.otf'), 60)
+FONT_SMALL = pygame.font.Font(os.path.join('memecheckers/assets', 'fonts','SillerPersonalUse-9Y3wn.otf'), 30)
+FONT_INFO_PANEL_LABEL = pygame.font.Font(os.path.join('memecheckers/assets', 'fonts','WhiteWood-Mzde.ttf'), 30)
+FONT_INFO_PANEL_DATA = pygame.font.Font(os.path.join('memecheckers/assets', 'fonts','WhiteWood-Mzde.ttf'), 30)
+
+FONT_INFO_PANEL_LABEL_SMALL = pygame.font.Font(os.path.join('memecheckers/assets', 'fonts','WhiteWood-Mzde.ttf'), 15)
+FONT_INFO_PANEL_DATA_SMALL = pygame.font.Font(os.path.join('memecheckers/assets', 'fonts','WhiteWood-Mzde.ttf'), 35)
