@@ -35,7 +35,7 @@ class Game():
 
     def update(self):
         self.board.draw(self.window, self.selected)
-        self.draw_valid_moves(self.valid_moves)
+        # self.draw_valid_moves(self.valid_moves)
         self.update_timer() 
         self.draw_info_panel()
         pygame.display.update()

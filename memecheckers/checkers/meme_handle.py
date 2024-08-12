@@ -9,7 +9,8 @@ class MemeHandler:
         self.queen_memes = self.load_memes(os.path.join('memecheckers/assets','midia', 'queen'))
         self.invalid_move_memes = self.load_memes(os.path.join('memecheckers/assets','midia', 'invalid_moves'))
         self.multi_capture_memes = self.load_memes(os.path.join('memecheckers/assets','midia', 'multi_capture'))
-        self.time_memes = os.path.join('memecheckers/assets','midia', 'time')
+        # self.time_memes = os.path.join('memecheckers/assets','midia', 'time')
+        self.winn_memes = self.load_memes(os.path.join('memecheckers/assets','midia', 'winner'))
     def load_memes(self, directory):
         memes = []
         for filename in os.listdir(directory):

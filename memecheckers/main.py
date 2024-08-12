@@ -46,6 +46,7 @@ def main(rerun=False):
         if game.winner() != None:
             winner_panel = WinnerPanel(WINDOW, game.winner())
             game.reset()
+            game.meme_handler.play_meme(game.meme_handler.winn_memes)
             result = winner_panel.run()
     
             if result == 'play_again':
